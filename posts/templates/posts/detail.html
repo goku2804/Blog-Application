@@ -1,0 +1,31 @@
+{% extends 'posts/base.html' %}
+{% block content %}
+
+<div class="card shadow-sm p-4">
+    <h2>{{ post.title }}</h2>
+    <p class="text-muted">By {{ post.author }}</p>
+
+    <p class="text-muted" style="font-size: 14px;">
+    Created on {{ post.created_date|date:"M d, Y" }}
+    {% if post.created_date != post.updated_date %}
+        • Updated on {{ post.updated_date|date:"M d, Y" }}
+    {% endif %}
+</p>
+
+
+    {% if post.image %}
+    <img src="{{ post.image.url }}"
+         class="img-fluid rounded mb-3">
+{% endif %}
+
+
+    <p>{{ post.content }}</p>
+
+    <hr>
+
+    <a href="{% url 'edit_post' post.id %}" class="btn btn-warning">Edit</a>
+    <a href="{% url 'delete_post' post.id %}" class="btn btn-danger">Delete</a>
+    <a href="{% url 'index' %}" class="btn btn-secondary">Back</a>
+</div>
+
+{% endblock %}
